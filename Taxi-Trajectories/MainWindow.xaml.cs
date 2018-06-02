@@ -91,7 +91,7 @@ namespace Taxi_Trajectories
         
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
-            //if (!isRoaded()) return;
+            if (!isRoaded()) return;
             //int p0_x = (int)(long.Parse(pos_0.Text) / 100000);
             //int p0_y = (int)(long.Parse(pos_0.Text) % 100000);
             //int p1_x = (int)(long.Parse(pos_1.Text) / 100000);
@@ -102,7 +102,7 @@ namespace Taxi_Trajectories
             MessageBox.Show(str);
             Map.InvokeScript("createTable", new object[] { str });
             String strPoint = ptrCar.getCarCountString();
-            //Map.InvokeScript("showPoint", new object[] { strPoint });
+            Map.InvokeScript("showColorPoint", new object[] { strPoint });
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
@@ -137,6 +137,22 @@ namespace Taxi_Trajectories
         private void Button_Click_6(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void Button_Click_7(object sender, RoutedEventArgs e)
+        {
+            if (!isRoaded()) return;
+            //int p0_x = (int)(long.Parse(pos_0.Text) / 100000);
+            //int p0_y = (int)(long.Parse(pos_0.Text) % 100000);
+            //int p1_x = (int)(long.Parse(pos_1.Text) / 100000);
+            //int p1_y = (int)(long.Parse(pos_1.Text) % 100000);
+            String str = ptrCar.carCount(0, 0, 0, 0, int.Parse(time_0.Text), int.Parse(time_1.Text));
+            int carCountNum = ptrCar.getCarCountNum();
+            //System.IO.File.WriteAllText(@"F:\test.txt", str);
+            MessageBox.Show(str);
+            Map.InvokeScript("createTable", new object[] { str });
+            //String strPoint = ptrCar.getCarCountString();
+            //Map.InvokeScript("showColorPoint", new object[] { strPoint });
         }
     }
 }

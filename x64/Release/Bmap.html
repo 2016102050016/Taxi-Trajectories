@@ -149,6 +149,47 @@
     }
 		
 	}
+		
+	//展示点
+	function showColorPoint(carData){
+
+		
+		/*var carData = '[{"data":[[116510,39935,0],[116515,39910,1],[116470,39910,2],[116470,39920,3],[116470,39905,4],[116455,39905,5],[116505,39910,6],[116495,39910,7],[116455,39865,8],[116490,39875,9],[116500,39865,10]]}]';*/
+		
+	    var Color=new Array("#FFB90F","#FFA54F","#FF8C00","#FF7F50","#FF6EB4","#FF4500","#FF3030","#FF00FF","#FFFF00","#EEAD0E","#CDCD00");
+		var jsonDate=eval('('+carData+')');
+	
+		// 添加海量点数据
+
+		for(var i=0,l=jsonDate.length;i<l;i++){
+			for(var key in jsonDate[i]){
+				for(var j=0,ll=jsonDate[i][key].length;j<ll;j++){
+					var pois1=[];
+					
+					pois1.push(new BMap.Point((jsonDate[i][key][j][0]/1000), (jsonDate[i][key][j][1]/1000)));
+					//console.log(parseInt(j/10));
+					if (document.createElement('canvas').getContext) {  // 判断当前浏览器是否支持绘制海量点
+						var options = {
+							size: BMAP_POINT_SIZE_SMALL,
+							shape:BMAP_POINT_SHAPE_CIRCLE,
+							color: '#FF0000'
+						}
+						var pointCollection = new BMap.PointCollection(pois1, options);  // 初始化PointCollection
+			            pointCollection.addEventListener('click', function (e) {
+							alert('单击点的坐标为：' + e.point.lng + ',' + e.point.lat);  // 监听点击事件
+						});
+						//console.log(parseInt(jsonDate[i][key][j][2]/10));
+						pointCollection.setStyles({color:Color[parseInt(jsonDate[i][key][j][2]/500)]});
+						map.addOverlay(pointCollection);  // 添加Overlay
+					} else {
+						alert('请在chrome、safari、IE8+以上浏览器查看本示例');
+					}
+				}
+		}
+		
+		
+	}
+	}
 
 		
 	//清除点
